@@ -1,28 +1,71 @@
+//package com.soomin.myCollection.service;
+//
+//import com.soomin.myCollection.entity.SiteUser;
+//import com.soomin.myCollection.repository.UserRepository;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder; //동일하게 맞추기 위해 추가
+//import org.springframework.stereotype.Service;
+//
+////@RequiredArgsConstructor
+////@Service // "나는 비즈니스 로직을 담당하는 서비스야"
+////public class UserService {
+////
+////    private final UserRepository userRepository;
+////
+////    public SiteUser create(String username, String email, String password) {
+////        SiteUser user = new SiteUser();
+////        user.setUsername(username);
+////        user.setEmail(email);
+////
+////        // 중요! 비밀번호를 그냥 저장하면 위험해요.
+////        // BCryptPasswordEncoder를 사용해 암호화해서 저장합니다.
+////        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+////        user.setPassword(passwordEncoder.encode(password));
+////
+////        this.userRepository.save(user); // DB 리모컨으로 저장!
+////        return user;
+////    }
+////}
+//@RequiredArgsConstructor
+//@Service
+//public class UserService {
+//
+//    private final UserRepository userRepository;
+//    private final PasswordEncoder passwordEncoder; // ⭐ 주입받기
+//
+//    public SiteUser create(String username, String email, String password) {
+//        SiteUser user = new SiteUser();
+//        user.setUsername(username);
+//        user.setEmail(email);
+//
+//        user.setPassword(passwordEncoder.encode(password)); // ⭐ Bean 사용
+//
+//        return userRepository.save(user);
+//    }
+//}
+
 package com.soomin.myCollection.service;
 
 import com.soomin.myCollection.entity.SiteUser;
 import com.soomin.myCollection.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service // "나는 비즈니스 로직을 담당하는 서비스야"
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public SiteUser create(String username, String email, String password) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setEmail(email);
-
-        // 중요! 비밀번호를 그냥 저장하면 위험해요.
-        // BCryptPasswordEncoder를 사용해 암호화해서 저장합니다.
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(password));
 
-        this.userRepository.save(user); // DB 리모컨으로 저장!
-        return user;
+        return userRepository.save(user);
     }
 }

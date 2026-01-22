@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> //th 쓴다고 선언
+<html xmlns:th="http://www.thymeleaf.org"> <!-- th 쓴다고 선언 -->
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
 </head>
 <body>
     <h2>소장품 관리 - 회원가입</h2>
-    <form action="/user.signup" method="post">
+    <form action="/user/signup" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <div>
